@@ -13,6 +13,8 @@
 @property (nonatomic, strong) NSMutableArray *categoriesArray;
 @property (nonatomic, strong) NSMutableArray *categoryPicturesArray;
 @property (nonatomic, strong) NSArray *articlesArray;
+@property (nonatomic, strong) NSMutableArray *deletedCategories;
+@property (nonatomic, strong) NSMutableArray *deletedCategoryPictures;
 
 
 @end
@@ -50,6 +52,10 @@
     UIImage *blogsImage = [UIImage imageNamed: @"talk-100@2x.png"];
     
     self.categoryPicturesArray = [NSMutableArray arrayWithObjects:newsImage, opinionImage, sportsImage, artsImage, scienceImage, diningImage, multimediaImage, blogsImage, nil];
+    
+    //init deleted arrays
+    self.deletedCategories = [[NSMutableArray alloc] init];
+    self.deletedCategoryPictures = [[NSMutableArray alloc] init];
 }
 
 - (void)didReceiveMemoryWarning
@@ -104,6 +110,9 @@
     // If row is deleted, remove it from the list.
     if (editingStyle == UITableViewCellEditingStyleDelete) {
         
+        [self.deletedCategoryPictures addObject:self.categoryPicturesArray[indexPath.row]];
+        [self.deletedCategories addObject:self.categoriesArray[indexPath.row]];
+        
         [self.categoriesArray removeObjectAtIndex:indexPath.row];
         [self.categoryPicturesArray removeObjectAtIndex:indexPath.row];
         
@@ -116,11 +125,7 @@
 }
 
 - (UITableViewCellEditingStyle)tableView:(UITableView *)tableView editingStyleForRowAtIndexPath:(NSIndexPath *)indexPath {
-    if (indexPath.row == self.categoriesArray.count - 1) {
-        return UITableViewCellEditingStyleInsert;
-    } else {
-        return UITableViewCellEditingStyleDelete;
-    }
+    return UITableViewCellEditingStyleDelete;
 }
 
 - (IBAction)unwindToCategories:(UIStoryboardSegue *)segue{

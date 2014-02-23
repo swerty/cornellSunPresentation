@@ -8,6 +8,19 @@
 
 #import <UIKit/UIKit.h>
 
+@protocol SPAddCategoriesViewControllerDelegate;
+
 @interface SPAddCategoriesViewController : UITableViewController
+
+@property (nonatomic, weak) NSObject <SPAddCategoriesViewControllerDelegate> *delegate;
+
+- (IBAction)handleDoneButton:(id)sender;
+
+@end
+
+@protocol SPAddCategoriesViewControllerDelegate <NSObject>
+
+- (void)addCategoriesViewController:(SPAddCategoriesViewController*)viewController
+             didAddCategories:(NSArray *)categories;
 
 @end

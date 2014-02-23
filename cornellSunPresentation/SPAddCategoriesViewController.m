@@ -10,7 +10,11 @@
 
 @interface SPAddCategoriesViewController ()
 
+@property (nonatomic, strong) NSMutableArray *addedCategories;
+
 @end
+
+
 
 @implementation SPAddCategoriesViewController
 
@@ -21,6 +25,14 @@
         // Custom initialization
     }
     return self;
+
+}
+
+- (IBAction)handleDoneButton:(id)sender {
+    if ([self.delegate respondsToSelector:@selector(addCategoriesViewController:didAddCategories:)]){
+        [self.delegate addCategoriesViewController:self didAddCategories:self.addedCategories];
+    }
+    
 }
 
 - (void)viewDidLoad
