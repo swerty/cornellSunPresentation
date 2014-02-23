@@ -7,6 +7,7 @@
 //
 
 #import "CategoriesViewController.h"
+#import "SPAddCategoriesViewController.h"
 
 @interface CategoriesViewController ()
 
@@ -129,7 +130,17 @@
 }
 
 - (IBAction)unwindToCategories:(UIStoryboardSegue *)segue{
-    
+    SPAddCategoriesViewController *destView = [segue sourceViewController];
+    [self.categoriesArray addObjectsFromArray:destView.addedCategories];
+}
+
+-(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender{
+    if ([segue.identifier isEqualToString:@"addCatsSegue"]) {
+        UINavigationController *navigationController = segue.destinationViewController;
+        SPAddCategoriesViewController *addCats = [navigationController viewControllers][0];
+        addCats.deletedCategories = self.deletedCategories;
+        addCats.deletedCategoryPics = self.deletedCategoryPictures;
+    }
 }
 
 

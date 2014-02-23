@@ -10,8 +10,6 @@
 
 @interface SPAddCategoriesViewController ()
 
-@property (nonatomic, strong) NSMutableArray *addedCategories;
-
 @end
 
 
@@ -43,7 +41,7 @@
     // self.clearsSelectionOnViewWillAppear = NO;
  
     // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-    // self.navigationItem.rightBarButtonItem = self.editButtonItem;
+    self.navigationItem.rightBarButtonItem = self.editButtonItem;
 }
 
 - (void)didReceiveMemoryWarning
@@ -59,21 +57,30 @@
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
     // Return the number of sections.
-    return 0;
+    return 1;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
     // Return the number of rows in the section.
-    return 0;
+    return self.deletedCategories.count;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    static NSString *CellIdentifier = @"Cell";
+    static NSString *CellIdentifier = @"CategoryCell";
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier forIndexPath:indexPath];
+    if (cell == nil) {
+        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
+    }
     
-    // Configure the cell...
+    
+    UILabel *categoryLabel = (UILabel *)[cell viewWithTag:2];
+    
+    categoryLabel.text = self.deletedCategories[indexPath.row];
+    
+    UIImageView *categoryImageView = (UIImageView *)[cell viewWithTag:1];
+    categoryImageView.image = self.deletedCategoryPics[indexPath.row];
     
     return cell;
 }

@@ -14,6 +14,10 @@
 
 @property (nonatomic, weak) NSObject <SPAddCategoriesViewControllerDelegate> *delegate;
 
+@property (nonatomic, strong) NSMutableArray *addedCategories;
+@property (nonatomic, strong) NSMutableArray *deletedCategories;
+@property (nonatomic, strong) NSMutableArray *deletedCategoryPics;
+
 - (IBAction)handleDoneButton:(id)sender;
 
 @end
